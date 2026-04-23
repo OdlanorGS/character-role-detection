@@ -1,0 +1,980 @@
+{
+  "model": "claude-sonnet-4-6",
+  "approach": "zero-shot",
+  "condition": "fair",
+  "max_length": 4096,
+  "n_folds": 5,
+  "parse_failures": 0,
+  "total_evaluated": 271,
+  "estimated_cost_usd": 1.4503,
+  "summary": {
+    "eval_f1_macro": {
+      "mean": 0.5181,
+      "std": 0.0639,
+      "per_fold": [
+        0.48966483966483965,
+        0.5977490534012272,
+        0.4167789200047265,
+        0.5725490196078431,
+        0.5139393939393939
+      ]
+    },
+    "eval_f1_micro": {
+      "mean": 0.572,
+      "std": 0.0238,
+      "per_fold": [
+        0.5636363636363636,
+        0.6111111111111112,
+        0.5370370370370371,
+        0.5740740740740741,
+        0.5740740740740741
+      ]
+    },
+    "eval_f1_weighted": {
+      "mean": 0.581,
+      "std": 0.0275,
+      "per_fold": [
+        0.5758506440324621,
+        0.6294226593743502,
+        0.5439713611756622,
+        0.581445170660857,
+        0.5741863075196408
+      ]
+    }
+  },
+  "per_fold": [
+    {
+      "eval_f1_macro": 0.48966483966483965,
+      "eval_f1_micro": 0.5636363636363636,
+      "eval_f1_weighted": 0.5758506440324621
+    },
+    {
+      "eval_f1_macro": 0.5977490534012272,
+      "eval_f1_micro": 0.6111111111111112,
+      "eval_f1_weighted": 0.6294226593743502
+    },
+    {
+      "eval_f1_macro": 0.4167789200047265,
+      "eval_f1_micro": 0.5370370370370371,
+      "eval_f1_weighted": 0.5439713611756622
+    },
+    {
+      "eval_f1_macro": 0.5725490196078431,
+      "eval_f1_micro": 0.5740740740740741,
+      "eval_f1_weighted": 0.581445170660857
+    },
+    {
+      "eval_f1_macro": 0.5139393939393939,
+      "eval_f1_micro": 0.5740740740740741,
+      "eval_f1_weighted": 0.5741863075196408
+    }
+  ],
+  "error_analyses": [
+    {
+      "report": "              precision    recall  f1-score   support\n\n   adversary       0.33      0.20      0.25         5\n        ally       0.85      0.46      0.59        24\n        hero       0.85      0.85      0.85        13\n     neutral       0.29      0.78      0.42         9\n     villain       0.50      0.25      0.33         4\n\n    accuracy                           0.56        55\n   macro avg       0.56      0.51      0.49        55\nweighted avg       0.68      0.56      0.58        55\n",
+      "confusion_matrix": [
+        [
+          1,
+          0,
+          0,
+          3,
+          1
+        ],
+        [
+          1,
+          11,
+          1,
+          11,
+          0
+        ],
+        [
+          0,
+          1,
+          11,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          7,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          2,
+          1
+        ]
+      ],
+      "misclassified": [
+        {
+          "character": "Mistress Alicia Risingham",
+          "novel": "Novel10",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Maud",
+          "novel": "Novel11",
+          "true_role": "adversary",
+          "predicted": "neutral"
+        },
+        {
+          "character": "her guests",
+          "novel": "Novel12",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Laura interjected",
+          "novel": "Novel12",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "my uncle , Sir John",
+          "novel": "Novel15",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Sir John -LRB- 2 vols. , London : Longman , Hurst , Rees , Orme and Brown -RRB-",
+          "novel": "Novel15",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Darius the king",
+          "novel": "Novel18",
+          "true_role": "ally",
+          "predicted": "adversary"
+        },
+        {
+          "character": "John , who though he had heard all that had been said",
+          "novel": "Novel19",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Mr. Booley , who had pushed past Mr. Ambrose and stood confronting the doctor with a look which was intended to express a combination of sarcasm , superior cunning and authority",
+          "novel": "Novel19",
+          "true_role": "villain",
+          "predicted": "adversary"
+        },
+        {
+          "character": "poor little Nellie",
+          "novel": "Novel19",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Mr. Enfield : `` I was coming home from some place at the end of the world , about three o'clock of a black winter morning , and my way lay through a part of town where there was literally",
+          "novel": "Novel25",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Henry Jekyll 's",
+          "novel": "Novel25",
+          "true_role": "neutral",
+          "predicted": "hero"
+        },
+        {
+          "character": "Paolo , whom he had nearly killed that morning",
+          "novel": "Novel28",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Lucia and Gianbattista",
+          "novel": "Novel28",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Lottie",
+          "novel": "Novel29",
+          "true_role": "neutral",
+          "predicted": "ally"
+        },
+        {
+          "character": "Silver",
+          "novel": "Novel3",
+          "true_role": "adversary",
+          "predicted": "villain"
+        },
+        {
+          "character": "Old Pew",
+          "novel": "Novel3",
+          "true_role": "villain",
+          "predicted": "neutral"
+        },
+        {
+          "character": " Gentlemen of fortune",
+          "novel": "Novel3",
+          "true_role": "villain",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Mr. Arrow",
+          "novel": "Novel3",
+          "true_role": "adversary",
+          "predicted": "neutral"
+        },
+        {
+          "character": "old Saracinesca",
+          "novel": "Novel30",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "The young man",
+          "novel": "Novel5",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Gentlemen",
+          "novel": "Novel5",
+          "true_role": "adversary",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Signor Cardegna",
+          "novel": "Novel7",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "me , Mrs. Oswald",
+          "novel": "Novel9",
+          "true_role": "ally",
+          "predicted": "neutral"
+        }
+      ]
+    },
+    {
+      "report": "              precision    recall  f1-score   support\n\n   adversary       0.75      0.60      0.67         5\n        ally       0.92      0.50      0.65        24\n        hero       0.80      0.62      0.70        13\n     neutral       0.36      1.00      0.53         8\n     villain       0.40      0.50      0.44         4\n\n    accuracy                           0.61        54\n   macro avg       0.65      0.64      0.60        54\nweighted avg       0.76      0.61      0.63        54\n",
+      "confusion_matrix": [
+        [
+          3,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          12,
+          2,
+          10,
+          0
+        ],
+        [
+          0,
+          1,
+          8,
+          3,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          8,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          1,
+          2
+        ]
+      ],
+      "misclassified": [
+        {
+          "character": "Ida and himself",
+          "novel": "Novel11",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Mrs. Rawson 's",
+          "novel": "Novel12",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Good",
+          "novel": "Novel13",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "your boy Harry -LRB- there 's a bribe for you -RRB-",
+          "novel": "Novel13",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "the Princess",
+          "novel": "Novel15",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Gondremark",
+          "novel": "Novel15",
+          "true_role": "adversary",
+          "predicted": "villain"
+        },
+        {
+          "character": "Beatrice Granmichele",
+          "novel": "Novel16",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Mrs. Ray 's",
+          "novel": "Novel17",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Mattha , with the manner of a man who is conscious that he is making an original observation",
+          "novel": "Novel17",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "The priests",
+          "novel": "Novel18",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "The seventy priests",
+          "novel": "Novel18",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Goddard",
+          "novel": "Novel19",
+          "true_role": "villain",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Doctor Longstreet , who was fifteen or twenty years older than the detective but still strong and active",
+          "novel": "Novel19",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "the vicar , who was nearest to him",
+          "novel": "Novel19",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Mr. Keene",
+          "novel": "Novel20",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "May 's",
+          "novel": "Novel23",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Lanyon , '' said he `` you",
+          "novel": "Novel25",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Nina",
+          "novel": "Novel26",
+          "true_role": "villain",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Marzio , the strong-minded freethinker",
+          "novel": "Novel28",
+          "true_role": "hero",
+          "predicted": "villain"
+        },
+        {
+          "character": "Fernan Perez",
+          "novel": "Novel8",
+          "true_role": "adversary",
+          "predicted": "villain"
+        },
+        {
+          "character": "Mr. Oswald",
+          "novel": "Novel9",
+          "true_role": "ally",
+          "predicted": "hero"
+        }
+      ]
+    },
+    {
+      "report": "              precision    recall  f1-score   support\n\n   adversary       0.33      0.25      0.29         4\n        ally       0.80      0.50      0.62        24\n        hero       0.80      0.57      0.67        14\n     neutral       0.35      1.00      0.52         8\n     villain       0.00      0.00      0.00         4\n\n    accuracy                           0.54        54\n   macro avg       0.46      0.46      0.42        54\nweighted avg       0.64      0.54      0.54        54\n",
+      "confusion_matrix": [
+        [
+          1,
+          0,
+          0,
+          2,
+          1
+        ],
+        [
+          0,
+          12,
+          2,
+          10,
+          0
+        ],
+        [
+          0,
+          3,
+          8,
+          1,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          8,
+          0
+        ],
+        [
+          2,
+          0,
+          0,
+          2,
+          0
+        ]
+      ],
+      "misclassified": [
+        {
+          "character": "Lucia , who had been looking steadily out of the carriage-window",
+          "novel": "Novel1",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Hamley , all jealousy forgotten",
+          "novel": "Novel10",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Richard , `` I will pray for you , indeed ; though how I may prevail I wot not",
+          "novel": "Novel10",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "the priest",
+          "novel": "Novel10",
+          "true_role": "villain",
+          "predicted": "neutral"
+        },
+        {
+          "character": "nurse Mrs. Lennox",
+          "novel": "Novel12",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "an Englishman , because his mamma had told him so",
+          "novel": "Novel14",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "quite a little fellow",
+          "novel": "Novel14",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Beatrice , who came next",
+          "novel": "Novel16",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Doctor",
+          "novel": "Novel19",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Olly , with his eyes fastened on Becky 's plate of strawberries , which was on the chest of drawers",
+          "novel": "Novel2",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Mr. Mutimer 's",
+          "novel": "Novel20",
+          "true_role": "villain",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Mrs. Barton",
+          "novel": "Novel23",
+          "true_role": "villain",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Allise And Edward",
+          "novel": "Novel23",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "a man of a rugged",
+          "novel": "Novel25",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "His wife",
+          "novel": "Novel27",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Maria Luisa , who was very far from guessing what an intimate connection existed between the crucifix and Paolo in her husband 's mind",
+          "novel": "Novel28",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Marzio",
+          "novel": "Novel28",
+          "true_role": "hero",
+          "predicted": "villain"
+        },
+        {
+          "character": "Marzio in a tone which was not like his own",
+          "novel": "Novel28",
+          "true_role": "hero",
+          "predicted": "villain"
+        },
+        {
+          "character": "Miss Minchin",
+          "novel": "Novel29",
+          "true_role": "adversary",
+          "predicted": "villain"
+        },
+        {
+          "character": "Dick",
+          "novel": "Novel3",
+          "true_role": "adversary",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Vladimir",
+          "novel": "Novel6",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "the wealthy banker of St. Petersburg",
+          "novel": "Novel7",
+          "true_role": "villain",
+          "predicted": "adversary"
+        },
+        {
+          "character": "poor Hedwig , clinging closer",
+          "novel": "Novel7",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Luttrell",
+          "novel": "Novel9",
+          "true_role": "adversary",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Miss Edith",
+          "novel": "Novel9",
+          "true_role": "ally",
+          "predicted": "neutral"
+        }
+      ]
+    },
+    {
+      "report": "              precision    recall  f1-score   support\n\n   adversary       0.50      0.25      0.33         4\n        ally       0.69      0.46      0.55        24\n        hero       1.00      0.54      0.70        13\n     neutral       0.36      1.00      0.53         9\n     villain       0.75      0.75      0.75         4\n\n    accuracy                           0.57        54\n   macro avg       0.66      0.60      0.57        54\nweighted avg       0.70      0.57      0.58        54\n",
+      "confusion_matrix": [
+        [
+          1,
+          0,
+          0,
+          2,
+          1
+        ],
+        [
+          0,
+          11,
+          0,
+          13,
+          0
+        ],
+        [
+          0,
+          5,
+          7,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          9,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          3
+        ]
+      ],
+      "misclassified": [
+        {
+          "character": "the nowise loth Alicia",
+          "novel": "Novel10",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Kate 's",
+          "novel": "Novel12",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Dick",
+          "novel": "Novel12",
+          "true_role": "adversary",
+          "predicted": "neutral"
+        },
+        {
+          "character": "the Captain 's",
+          "novel": "Novel14",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Hobbs",
+          "novel": "Novel14",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Mr. Hobbs who gave him his first interest in politics",
+          "novel": "Novel14",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "more resplendent in those Chapel-Sunday garments with which",
+          "novel": "Novel17",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "the old weaver 's",
+          "novel": "Novel17",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "her son Willy",
+          "novel": "Novel17",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Laddie",
+          "novel": "Novel17",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "hideous men",
+          "novel": "Novel18",
+          "true_role": "villain",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Mr. Short , sir",
+          "novel": "Novel19",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Mrs. Waltham",
+          "novel": "Novel20",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Edward 's",
+          "novel": "Novel23",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Annie and Mary Austin",
+          "novel": "Novel27",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Missee sahib",
+          "novel": "Novel29",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "`` The Indian gentleman .",
+          "novel": "Novel29",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "poor Miss Amelia",
+          "novel": "Novel29",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "old John 's",
+          "novel": "Novel3",
+          "true_role": "adversary",
+          "predicted": "villain"
+        },
+        {
+          "character": "Corona , with ready sympathy",
+          "novel": "Novel30",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "my dear , dear lady",
+          "novel": "Novel6",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Mr. Wallace 's",
+          "novel": "Novel8",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Miss Luttrell ",
+          "novel": "Novel9",
+          "true_role": "adversary",
+          "predicted": "neutral"
+        }
+      ]
+    },
+    {
+      "report": "              precision    recall  f1-score   support\n\n   adversary       0.33      0.50      0.40         4\n        ally       0.75      0.50      0.60        24\n        hero       0.78      0.54      0.64        13\n     neutral       0.43      1.00      0.60         9\n     villain       0.50      0.25      0.33         4\n\n    accuracy                           0.57        54\n   macro avg       0.56      0.56      0.51        54\nweighted avg       0.65      0.57      0.57        54\n",
+      "confusion_matrix": [
+        [
+          2,
+          1,
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          12,
+          2,
+          9,
+          0
+        ],
+        [
+          0,
+          3,
+          7,
+          3,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          9,
+          0
+        ],
+        [
+          3,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "misclassified": [
+        {
+          "character": "furious Lady Theobald",
+          "novel": "Novel1",
+          "true_role": "villain",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Julian Casti",
+          "novel": "Novel11",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "The landlady",
+          "novel": "Novel12",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Mrs. Rawson 's evening friend",
+          "novel": "Novel12",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "my brother George",
+          "novel": "Novel13",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "he and Jim",
+          "novel": "Novel13",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "The old Earl",
+          "novel": "Novel14",
+          "true_role": "villain",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Seraphina 's",
+          "novel": "Novel15",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "her mother",
+          "novel": "Novel16",
+          "true_role": "ally",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Beatrice",
+          "novel": "Novel16",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Liza , who is trying to look absent and unconcerned",
+          "novel": "Novel17",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Nehushta 's",
+          "novel": "Novel18",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "the little Syrian maid",
+          "novel": "Novel18",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "that Alfred",
+          "novel": "Novel20",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Emma 's",
+          "novel": "Novel20",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Mr Carrisford",
+          "novel": "Novel29",
+          "true_role": "adversary",
+          "predicted": "ally"
+        },
+        {
+          "character": "the woman , `` I told her to come when she was hungry , and when she 'd come I 'd give her odd jobs to do ; an ' I found she was willing , and somehow I got to like her ; and the end of it was , I 've given her a place an ' a home , and she helps me , an ' behaves well , an ' is as thankful as a girl can be",
+          "novel": "Novel29",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Del Ferice , who , between fear and exhaustion , was by this time half idiotic",
+          "novel": "Novel30",
+          "true_role": "adversary",
+          "predicted": "villain"
+        },
+        {
+          "character": "Isaacs , whose face was still hidden",
+          "novel": "Novel4",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Abdul Hafiz",
+          "novel": "Novel4",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Willis",
+          "novel": "Novel6",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Benoni",
+          "novel": "Novel7",
+          "true_role": "villain",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Elvira , with whom Macias is in love , the daughter of Nuno Fernandez",
+          "novel": "Novel8",
+          "true_role": "hero",
+          "predicted": "neutral"
+        }
+      ]
+    }
+  ]
+}

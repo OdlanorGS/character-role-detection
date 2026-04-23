@@ -1,0 +1,401 @@
+"""
+Step 2.1 — First / Last / Frequent Mention Chunking
+Uses coreference chains to locate characters in source text,
+then extracts context windows for downstream classification.
+
+Usage:
+    python step_2_1_chunking.py
+
+Outputs:
+    - outputs/chunked_characters.json   (structured chunks per character)
+    - outputs/chunk_statistics.csv       (coverage & mention stats)
+    - Console diagnostics for debugging mention matching
+
+"""
+
+import os # for directory creation
+import re # for regex mention matching
+import json # for saving output
+import pandas as pd # for data handling
+import numpy as np # for numerical operations
+from collections import Counter # for counting mention frequencies 
+from dataclasses import dataclass # for configuration structuring
+from typing import List, Dict, Tuple, Optional # for type annotations 
+from pathlib import Path # for file path handling
+
+
+# =============================================================================
+# CONFIGURATION
+# =============================================================================
+
+@dataclass
+class ChunkConfig:
+    # --- Paths ---
+    data_csv: str = "D:\\University FIU\\CAPSTONE\\annotations_templates\\master_roles.csv" # clean annotatted dta
+    texts_dir: str = "D:\\University FIU\\CAPSTONE\\character_v1.0.0\\Data\\AnnotatedCENData\\CENTexts" # folder with novel text files
+    output_dir: str = "outputs/"
+
+    # --- CSV parsing ---
+    csv_separator: str = ","
+    mention_separator: str = "|"        # Coreference mentions are separated by " | " in the CSV
+
+    # --- Roles to keep ---
+    valid_roles: tuple = ("hero", "villain", "ally", "adversary", "neutral")
+
+    # --- Chunk extraction ---
+    window_chars: int = 2000            # characters of context per chunk
+    min_mention_length: int = 3         # skip tiny mentions like "I", "he"
+    pronoun_filter: bool = True         # skip pronouns when locating positions
+    # Common pronouns to skip during position-finding
+    pronouns: tuple = (
+        "i", "me", "my", "mine", "myself",
+        "he", "him", "his", "himself",
+        "she", "her", "hers", "herself",
+        "they", "them", "their", "theirs", "themselves",
+        "we", "us", "our", "ours", "ourselves",
+        "you", "your", "yours", "yourself",
+        "it", "its", "itself",
+    )
+
+
+CFG = ChunkConfig()
+
+
+# =============================================================================
+# DATA LOADING
+# =============================================================================
+
+def load_annotated_data(cfg: ChunkConfig) -> pd.DataFrame:
+    """Load and filter the annotated character CSV."""
+    df = pd.read_csv(
+        cfg.data_csv,
+        sep=",",               # use "," if your file is comma-separated
+        encoding="cp1252"      # common for CSVs saved from Excel on Windows
+    )
+
+    # Normalize role column
+    df["role"] = df["role"].astype(str).str.strip().str.lower()
+
+    # Keep only characters with valid roles
+    df = df[df["role"].isin(cfg.valid_roles)].copy()
+
+    # Parse mentions into lists
+    df["mention_list"] = df["mentions"].fillna("").apply(
+        lambda x: [m.strip() for m in x.split(cfg.mention_separator) if m.strip()]
+    )
+
+    print(f"Loaded {len(df)} characters across {df['novel'].nunique()} novels")
+    print(f"Role distribution:\n{df['role'].value_counts().to_string()}\n")
+    return df
+
+
+def load_novel_text(novel_id: str, cfg: ChunkConfig) -> Optional[str]:
+    """Load the raw text file for a novel with encoding fallback."""
+    path = Path(cfg.texts_dir) / f"{novel_id}.txt"
+    if not path.exists():
+        print(f"  WARNING: Text not found for {novel_id} at {path}")
+        return None
+
+    encodings_to_try = ["utf-8", "utf-8-sig", "cp1252", "latin-1"]
+    last_error = None
+
+    for enc in encodings_to_try:
+        try:
+            text = path.read_text(encoding=enc)
+            print(f"  Loaded {novel_id}.txt using {enc}")
+            return text
+        except UnicodeDecodeError as e:
+            last_error = e
+            continue
+
+    print(f"  WARNING: Could not decode text for {novel_id} at {path}")
+    if last_error:
+        print(f"    Last decode error: {last_error}")
+    return None
+
+
+# =============================================================================
+# MENTION MATCHING
+# =============================================================================
+
+def filter_mentions(mentions: List[str], cfg: ChunkConfig) -> List[str]:
+    """
+    Filter out pronouns and very short mentions.
+    Pronouns are too ambiguous for position-finding — they'll match
+    every "he" or "she" in the novel, not just this character's.
+    We keep them in the original list for reference but don't use
+    them for locating positions in text.
+    """
+    filtered = []
+    for m in mentions:
+        m_clean = m.strip()
+        if len(m_clean) < cfg.min_mention_length:
+            continue
+        if cfg.pronoun_filter and m_clean.lower() in cfg.pronouns:
+            continue
+        filtered.append(m_clean)
+    return filtered
+
+
+def find_mention_positions(
+    text: str, mentions: List[str]
+) -> List[Dict]:
+    """
+    Locate all occurrences of each mention in the text.
+    Returns list of {mention, position, end} dicts sorted by position.
+    Uses word-boundary matching to avoid partial matches
+    (e.g., "Art" inside "Arthur").
+    """
+    positions = []
+    seen = set()  # avoid duplicate positions from overlapping mentions
+
+    for mention in mentions:
+        # Build pattern: escape special chars, use word boundaries
+        pattern = r'\b' + re.escape(mention) + r'\b'
+        try:
+            for match in re.finditer(pattern, text, re.IGNORECASE):
+                pos = match.start()
+                if pos not in seen:
+                    seen.add(pos)
+                    positions.append({
+                        "mention": mention,
+                        "position": pos,
+                        "end": match.end(),
+                    })
+        except re.error:
+            # Skip problematic patterns
+            continue
+
+    positions.sort(key=lambda x: x["position"])
+    return positions
+
+
+# =============================================================================
+# CHUNK EXTRACTION
+# =============================================================================
+
+def extract_chunk(text: str, center_pos: int, window: int) -> Dict:
+    """
+    Extract a window of text centered on a position.
+    Tries to break at sentence boundaries for cleaner context.
+    """
+    half = window // 2
+    raw_start = max(0, center_pos - half)
+    raw_end = min(len(text), center_pos + half)
+
+    # Nudge start forward to the next sentence boundary (period/newline)
+    snippet = text[raw_start:raw_end]
+    first_period = snippet.find(". ")
+    if first_period != -1 and first_period < 200:  # only if close to start
+        raw_start = raw_start + first_period + 2
+
+    # Nudge end back to the last sentence boundary
+    last_period = text[raw_start:raw_end].rfind(". ")
+    if last_period != -1 and (raw_end - raw_start - last_period) < 200:
+        raw_end = raw_start + last_period + 1
+
+    chunk_text = text[raw_start:raw_end].strip()
+
+    return {
+        "text": chunk_text,
+        "start": raw_start,
+        "end": raw_end,
+        "length": len(chunk_text),
+    }
+
+
+def get_character_chunks(
+    text: str,
+    mentions: List[str],
+    cfg: ChunkConfig,
+) -> Dict:
+    """
+    Core chunking logic for one character.
+    Returns first, last, and most-frequent mention chunks
+    plus metadata for diagnostics.
+    """
+    # Filter out pronouns for position finding
+    named_mentions = filter_mentions(mentions, cfg)
+
+    if not named_mentions:
+        return {
+            "status": "no_named_mentions",
+            "chunks": {},
+            "stats": {"total_mentions": len(mentions), "named_mentions": 0},
+        }
+
+    positions = find_mention_positions(text, named_mentions)
+
+    if not positions:
+        return {
+            "status": "no_positions_found",
+            "chunks": {},
+            "stats": {
+                "total_mentions": len(mentions),
+                "named_mentions": len(named_mentions),
+                "named_list": named_mentions[:10],  # for debugging
+            },
+        }
+
+    # --- FIRST mention: earliest position in the text ---
+    first = positions[0]
+
+    # --- LAST mention: latest position in the text ---
+    last = positions[-1]
+
+    # --- MOST FREQUENT: mention surface form with the most occurrences ---
+    mention_counts = Counter(p["mention"] for p in positions)
+    most_common_mention = mention_counts.most_common(1)[0]
+    # Find the position where this mention is most "central" (median occurrence)
+    freq_positions = [p for p in positions if p["mention"] == most_common_mention[0]]
+    mid_idx = len(freq_positions) // 2
+    frequent = freq_positions[mid_idx]
+
+    # Extract text chunks
+    chunks = {
+        "first": {
+            **extract_chunk(text, first["position"], cfg.window_chars),
+            "anchor_mention": first["mention"],
+            "anchor_position": first["position"],
+        },
+        "last": {
+            **extract_chunk(text, last["position"], cfg.window_chars),
+            "anchor_mention": last["mention"],
+            "anchor_position": last["position"],
+        },
+        "frequent": {
+            **extract_chunk(text, frequent["position"], cfg.window_chars),
+            "anchor_mention": frequent["mention"],
+            "anchor_position": frequent["position"],
+            "mention_count": most_common_mention[1],
+        },
+    }
+
+    # Check if any chunks overlap significantly
+    positions_set = {c["anchor_position"] for c in chunks.values()}
+    unique_positions = len(positions_set)
+
+    stats = {
+        "total_mentions": len(mentions),
+        "named_mentions": len(named_mentions),
+        "positions_found": len(positions),
+        "unique_chunk_anchors": unique_positions,
+        "text_length": len(text),
+        "coverage_pct": round(
+            (sum(c["length"] for c in chunks.values()) / len(text)) * 100, 2
+        ),
+        "most_common_mention": most_common_mention[0],
+        "most_common_count": most_common_mention[1],
+        "first_position_pct": round((first["position"] / len(text)) * 100, 2),
+        "last_position_pct": round((last["position"] / len(text)) * 100, 2),
+    }
+
+    return {"status": "ok", "chunks": chunks, "stats": stats}
+
+
+# =============================================================================
+# MAIN PIPELINE
+# =============================================================================
+
+def run_chunking(cfg: ChunkConfig):
+    """Run the full chunking pipeline and save results."""
+    os.makedirs(cfg.output_dir, exist_ok=True)
+
+    # Load data
+    df = load_annotated_data(cfg)
+
+    # Process each character
+    results = []
+    stats_rows = []
+
+    for novel_id in sorted(df["novel"].unique()):
+        text = load_novel_text(novel_id, cfg)
+        if text is None:
+            continue
+
+        novel_chars = df[df["novel"] == novel_id]
+        print(f"\n--- {novel_id} ({len(novel_chars)} characters, "
+              f"{len(text):,} chars) ---")
+
+        for _, row in novel_chars.iterrows():
+            result = get_character_chunks(text, row["mention_list"], cfg)
+
+            char_entry = {
+                "novel": novel_id,
+                "character": row["canonical_name"],
+                "role": row["role"],
+                "chain_id": int(row["chain_id"]),
+                "status": result["status"],
+                "chunks": {},
+                "stats": result["stats"],
+            }
+
+            if result["status"] == "ok":
+                # Store chunk text (without full metadata for JSON readability)
+                for chunk_type in ["first", "last", "frequent"]:
+                    chunk = result["chunks"][chunk_type]
+                    char_entry["chunks"][chunk_type] = {
+                        "text": chunk["text"],
+                        "anchor_mention": chunk["anchor_mention"],
+                        "anchor_position": chunk["anchor_position"],
+                        "length": chunk["length"],
+                    }
+
+                status_icon = "OK"
+                extra = (f"coverage={result['stats']['coverage_pct']}%, "
+                         f"positions={result['stats']['positions_found']}")
+            else:
+                status_icon = "SKIP"
+                extra = result["status"]
+
+            print(f"  [{status_icon}] {row['canonical_name']:<40} "
+                  f"role={row['role']:<12} {extra}")
+
+            results.append(char_entry)
+            stats_rows.append({
+                "novel": novel_id,
+                "character": row["canonical_name"],
+                "role": row["role"],
+                **result["stats"],
+            })
+
+    # --- Save outputs ---
+    # JSON with all chunks
+    json_path = Path(cfg.output_dir) / "chunked_characters.json"
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(results, f, indent=2, ensure_ascii=False)
+    print(f"\nSaved {len(results)} character chunks → {json_path}")
+
+    # Statistics CSV
+    stats_df = pd.DataFrame(stats_rows)
+    stats_path = Path(cfg.output_dir) / "chunk_statistics.csv"
+    stats_df.to_csv(stats_path, index=False)
+    print(f"Saved chunk statistics → {stats_path}")
+
+    # --- Summary report ---
+    ok_count = sum(1 for r in results if r["status"] == "ok")
+    skip_count = len(results) - ok_count
+    print(f"\n{'='*60}")
+    print(f"  CHUNKING SUMMARY")
+    print(f"{'='*60}")
+    print(f"  Total characters:  {len(results)}")
+    print(f"  Successfully chunked: {ok_count}")
+    print(f"  Skipped (no match):   {skip_count}")
+
+    if stats_df.get("coverage_pct") is not None and not stats_df.empty:
+        valid = stats_df[stats_df["coverage_pct"].notna()]
+        if not valid.empty:
+            print(f"  Avg coverage per character: "
+                  f"{valid['coverage_pct'].mean():.1f}%")
+            print(f"  Avg positions found: "
+                  f"{valid['positions_found'].mean():.1f}")
+
+    return results, stats_df
+
+
+# =============================================================================
+# ENTRY POINT
+# =============================================================================
+
+if __name__ == "__main__":
+    results, stats = run_chunking(CFG)

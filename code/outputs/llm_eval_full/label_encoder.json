@@ -1,0 +1,16 @@
+{
+  "classes": [
+    "adversary",
+    "ally",
+    "hero",
+    "neutral",
+    "villain"
+  ],
+  "label_to_id": {
+    "adversary": 0,
+    "ally": 1,
+    "hero": 2,
+    "neutral": 3,
+    "villain": 4
+  }
+}
