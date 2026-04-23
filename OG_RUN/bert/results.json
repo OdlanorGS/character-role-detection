@@ -1,0 +1,1153 @@
+{
+  "model": "bert-base-uncased",
+  "n_folds": 5,
+  "epochs": 10,
+  "summary": {
+    "eval_f1_macro": {
+      "mean": 0.3663,
+      "std": 0.0514
+    },
+    "eval_f1_micro": {
+      "mean": 0.4548,
+      "std": 0.0604
+    },
+    "eval_f1_weighted": {
+      "mean": 0.4498,
+      "std": 0.0597
+    }
+  },
+  "per_fold": [
+    {
+      "eval_loss": 1.4989936351776123,
+      "eval_f1_macro": 0.38733028222730737,
+      "eval_f1_micro": 0.48148148148148145,
+      "eval_f1_weighted": 0.4811756646043449,
+      "eval_runtime": 20.6627,
+      "eval_samples_per_second": 2.613,
+      "eval_steps_per_second": 0.339,
+      "epoch": 10.0
+    },
+    {
+      "eval_loss": 1.869720697402954,
+      "eval_f1_macro": 0.3076863354037267,
+      "eval_f1_micro": 0.41509433962264153,
+      "eval_f1_weighted": 0.4054919137466307,
+      "eval_runtime": 19.3464,
+      "eval_samples_per_second": 2.74,
+      "eval_steps_per_second": 0.362,
+      "epoch": 10.0
+    },
+    {
+      "eval_loss": 1.4121558666229248,
+      "eval_f1_macro": 0.3321909964670655,
+      "eval_f1_micro": 0.3584905660377358,
+      "eval_f1_weighted": 0.3597380719151728,
+      "eval_runtime": 19.5868,
+      "eval_samples_per_second": 2.706,
+      "eval_steps_per_second": 0.357,
+      "epoch": 10.0
+    },
+    {
+      "eval_loss": 1.3830598592758179,
+      "eval_f1_macro": 0.45508849158847237,
+      "eval_f1_micro": 0.5283018867924528,
+      "eval_f1_weighted": 0.5280091450820049,
+      "eval_runtime": 19.5179,
+      "eval_samples_per_second": 2.715,
+      "eval_steps_per_second": 0.359,
+      "epoch": 10.0
+    },
+    {
+      "eval_loss": 1.570670485496521,
+      "eval_f1_macro": 0.3493233427632082,
+      "eval_f1_micro": 0.49056603773584906,
+      "eval_f1_weighted": 0.47476943451045683,
+      "eval_runtime": 19.5131,
+      "eval_samples_per_second": 2.716,
+      "eval_steps_per_second": 0.359,
+      "epoch": 10.0
+    }
+  ],
+  "error_analyses": [
+    {
+      "report": "              precision    recall  f1-score   support\n\n   adversary       0.18      0.40      0.25         5\n        ally       0.55      0.52      0.53        23\n        hero       0.60      0.46      0.52        13\n     neutral       0.60      0.67      0.63         9\n     villain       0.00      0.00      0.00         4\n\n    accuracy                           0.48        54\n   macro avg       0.39      0.41      0.39        54\nweighted avg       0.49      0.48      0.48        54\n",
+      "confusion_matrix": [
+        [
+          2,
+          2,
+          0,
+          1,
+          0
+        ],
+        [
+          4,
+          12,
+          4,
+          3,
+          0
+        ],
+        [
+          1,
+          5,
+          6,
+          0,
+          1
+        ],
+        [
+          1,
+          2,
+          0,
+          6,
+          0
+        ],
+        [
+          3,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "misclassified": [
+        {
+          "character": "Mr. Francis Barold",
+          "novel": "Novel1",
+          "true_role": "adversary",
+          "predicted": "ally"
+        },
+        {
+          "character": "My Dear Quatermain",
+          "novel": "Novel13",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "my uncle , Sir John",
+          "novel": "Novel15",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Otto and Seraphina",
+          "novel": "Novel15",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Mr. Ambrose coming towards him",
+          "novel": "Novel19",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Goddard",
+          "novel": "Novel19",
+          "true_role": "villain",
+          "predicted": "ally"
+        },
+        {
+          "character": "Mr. Eldon",
+          "novel": "Novel20",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Hubert , his eyes still on her",
+          "novel": "Novel20",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Alice 's",
+          "novel": "Novel23",
+          "true_role": "hero",
+          "predicted": "villain"
+        },
+        {
+          "character": "Heliobas , with a smile",
+          "novel": "Novel24",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Henry Jekyll 's",
+          "novel": "Novel25",
+          "true_role": "neutral",
+          "predicted": "ally"
+        },
+        {
+          "character": "Maria Luisa , who was very far from guessing what an intimate connection existed between the crucifix and Paolo in her husband 's mind",
+          "novel": "Novel28",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Paolo , whom he had nearly killed that morning",
+          "novel": "Novel28",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Gianbattista",
+          "novel": "Novel28",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Missee sahib",
+          "novel": "Novel29",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Miss Minchin of days in the past",
+          "novel": "Novel29",
+          "true_role": "adversary",
+          "predicted": "ally"
+        },
+        {
+          "character": "the woman , `` I told her to come when she was hungry , and when she 'd come I 'd give her odd jobs to do ; an ' I found she was willing , and somehow I got to like her ; and the end of it was , I 've given her a place an ' a home , and she helps me , an ' behaves well , an ' is as thankful as a girl can be",
+          "novel": "Novel29",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Lottie",
+          "novel": "Novel29",
+          "true_role": "neutral",
+          "predicted": "ally"
+        },
+        {
+          "character": "Old Pew , as had lost his sight , and might have thought shame",
+          "novel": "Novel3",
+          "true_role": "villain",
+          "predicted": "adversary"
+        },
+        {
+          "character": "`` Gentlemen of fortune , ''",
+          "novel": "Novel3",
+          "true_role": "villain",
+          "predicted": "adversary"
+        },
+        {
+          "character": "the coxswain , Israel Hands",
+          "novel": "Novel3",
+          "true_role": "villain",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Cap'n Smollett",
+          "novel": "Novel3",
+          "true_role": "ally",
+          "predicted": "adversary"
+        },
+        {
+          "character": "his horse",
+          "novel": "Novel30",
+          "true_role": "neutral",
+          "predicted": "adversary"
+        },
+        {
+          "character": "The monk",
+          "novel": "Novel30",
+          "true_role": "adversary",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Signor Cardegna",
+          "novel": "Novel7",
+          "true_role": "ally",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Harry Oswald , Fellow and Lecturer of Oriel College , Oxford",
+          "novel": "Novel9",
+          "true_role": "ally",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Harry , surveying her from",
+          "novel": "Novel9",
+          "true_role": "hero",
+          "predicted": "adversary"
+        },
+        {
+          "character": "me , Mrs. Oswald",
+          "novel": "Novel9",
+          "true_role": "ally",
+          "predicted": "adversary"
+        }
+      ]
+    },
+    {
+      "report": "              precision    recall  f1-score   support\n\n   adversary       0.50      0.20      0.29         5\n        ally       0.57      0.57      0.57        23\n        hero       0.26      0.38      0.31        13\n     neutral       0.38      0.38      0.38         8\n     villain       0.00      0.00      0.00         4\n\n    accuracy                           0.42        53\n   macro avg       0.34      0.30      0.31        53\nweighted avg       0.41      0.42      0.41        53\n",
+      "confusion_matrix": [
+        [
+          1,
+          2,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          13,
+          9,
+          1,
+          0
+        ],
+        [
+          0,
+          6,
+          5,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          2,
+          3,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          2,
+          0
+        ]
+      ],
+      "misclassified": [
+        {
+          "character": "Octavia , which Miss Belinda thought rather inconsistent",
+          "novel": "Novel1",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Joan",
+          "novel": "Novel10",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "` ceptin ' Mrs. Sprowl",
+          "novel": "Novel11",
+          "true_role": "neutral",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Dick , who helped her into it",
+          "novel": "Novel12",
+          "true_role": "adversary",
+          "predicted": "neutral"
+        },
+        {
+          "character": "he and Jim",
+          "novel": "Novel13",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "an Englishman , because his mamma had told him so",
+          "novel": "Novel14",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "the little boy",
+          "novel": "Novel14",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "A tall , thin old gentleman with a sharp face",
+          "novel": "Novel14",
+          "true_role": "neutral",
+          "predicted": "ally"
+        },
+        {
+          "character": "The old Earl",
+          "novel": "Novel14",
+          "true_role": "villain",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Mr. Cotterill",
+          "novel": "Novel15",
+          "true_role": "neutral",
+          "predicted": "ally"
+        },
+        {
+          "character": "Beatrice Granmichele",
+          "novel": "Novel16",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "a musician",
+          "novel": "Novel16",
+          "true_role": "neutral",
+          "predicted": "hero"
+        },
+        {
+          "character": "the two porters",
+          "novel": "Novel16",
+          "true_role": "neutral",
+          "predicted": "hero"
+        },
+        {
+          "character": "Liza , who is trying to look absent and unconcerned",
+          "novel": "Novel17",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Rotha , almost in a whisper",
+          "novel": "Novel17",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "The priests",
+          "novel": "Novel18",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Darius the king",
+          "novel": "Novel18",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "My dear Mrs. Juxon",
+          "novel": "Novel19",
+          "true_role": "hero",
+          "predicted": "villain"
+        },
+        {
+          "character": "Mr. David",
+          "novel": "Novel22",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Allise And Edward",
+          "novel": "Novel23",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Zara , half gaily",
+          "novel": "Novel24",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "my man",
+          "novel": "Novel25",
+          "true_role": "villain",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Nina , my wife",
+          "novel": "Novel26",
+          "true_role": "villain",
+          "predicted": "hero"
+        },
+        {
+          "character": "Mr. Carmichael , rather coldly",
+          "novel": "Novel29",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "the President 's",
+          "novel": "Novel5",
+          "true_role": "villain",
+          "predicted": "hero"
+        },
+        {
+          "character": "Gentlemen",
+          "novel": "Novel5",
+          "true_role": "adversary",
+          "predicted": "ally"
+        },
+        {
+          "character": "the kindness , Colonel Geraldine , to remember and respect your word of honour as a gentleman",
+          "novel": "Novel5",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Claudius , smiling",
+          "novel": "Novel6",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "no trained , reasoner , like Signor Grandi",
+          "novel": "Novel7",
+          "true_role": "adversary",
+          "predicted": "hero"
+        },
+        {
+          "character": "Miss Bretherton 's",
+          "novel": "Novel8",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "shaky bitter old Miss Catherine",
+          "novel": "Novel9",
+          "true_role": "adversary",
+          "predicted": "ally"
+        }
+      ]
+    },
+    {
+      "report": "              precision    recall  f1-score   support\n\n   adversary       0.17      0.25      0.20         4\n        ally       0.37      0.29      0.33        24\n        hero       0.39      0.54      0.45        13\n     neutral       0.60      0.38      0.46         8\n     villain       0.20      0.25      0.22         4\n\n    accuracy                           0.36        53\n   macro avg       0.34      0.34      0.33        53\nweighted avg       0.38      0.36      0.36        53\n",
+      "confusion_matrix": [
+        [
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        [
+          3,
+          7,
+          10,
+          1,
+          3
+        ],
+        [
+          1,
+          5,
+          7,
+          0,
+          0
+        ],
+        [
+          1,
+          3,
+          1,
+          3,
+          0
+        ],
+        [
+          0,
+          3,
+          0,
+          0,
+          1
+        ]
+      ],
+      "misclassified": [
+        {
+          "character": "Miss Belinda , following her closely",
+          "novel": "Novel1",
+          "true_role": "ally",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Dick ; `` and yon",
+          "novel": "Novel10",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Ellis Duckworth",
+          "novel": "Novel10",
+          "true_role": "ally",
+          "predicted": "villain"
+        },
+        {
+          "character": "the priest",
+          "novel": "Novel10",
+          "true_role": "villain",
+          "predicted": "ally"
+        },
+        {
+          "character": "Harriet",
+          "novel": "Novel11",
+          "true_role": "adversary",
+          "predicted": "ally"
+        },
+        {
+          "character": "His valet",
+          "novel": "Novel14",
+          "true_role": "neutral",
+          "predicted": "ally"
+        },
+        {
+          "character": "Sir John -LRB- 2 vols. , London : Longman , Hurst , Rees , Orme and Brown -RRB-",
+          "novel": "Novel15",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "My husband",
+          "novel": "Novel16",
+          "true_role": "neutral",
+          "predicted": "ally"
+        },
+        {
+          "character": "Laddie",
+          "novel": "Novel17",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Mr. Booley , who had pushed past Mr. Ambrose and stood confronting the doctor with a look which was intended to express a combination of sarcasm , superior cunning and authority",
+          "novel": "Novel19",
+          "true_role": "villain",
+          "predicted": "ally"
+        },
+        {
+          "character": "Milly , when they could not see Aunt Emma any more , and the last bit of Brownholme was slipping away , away , quite out of sight , `` I think Ravensnest is the nicest place we ever stopped at",
+          "novel": "Novel2",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Olly , with his eyes fastened on Becky 's plate of strawberries , which was on the chest of drawers",
+          "novel": "Novel2",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "The vicar",
+          "novel": "Novel20",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Adela , overcome by the latter 's goodness",
+          "novel": "Novel20",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "her dearest friend",
+          "novel": "Novel20",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Mrs. Clay",
+          "novel": "Novel20",
+          "true_role": "neutral",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Young ladies",
+          "novel": "Novel21",
+          "true_role": "neutral",
+          "predicted": "hero"
+        },
+        {
+          "character": "Alan",
+          "novel": "Novel22",
+          "true_role": "ally",
+          "predicted": "villain"
+        },
+        {
+          "character": "your uncle",
+          "novel": "Novel22",
+          "true_role": "villain",
+          "predicted": "ally"
+        },
+        {
+          "character": "Zoe Brennan",
+          "novel": "Novel23",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Paolo",
+          "novel": "Novel28",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "past Assunta",
+          "novel": "Novel28",
+          "true_role": "neutral",
+          "predicted": "ally"
+        },
+        {
+          "character": "her with the quiet , clear look Miss Minchin particularly disliked",
+          "novel": "Novel29",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Mr Carrisford",
+          "novel": "Novel29",
+          "true_role": "adversary",
+          "predicted": "neutral"
+        },
+        {
+          "character": "old John 's",
+          "novel": "Novel3",
+          "true_role": "adversary",
+          "predicted": "villain"
+        },
+        {
+          "character": "Gouache 's",
+          "novel": "Novel30",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "My friend",
+          "novel": "Novel4",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Isaacs , whose face was still hidden",
+          "novel": "Novel4",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Abdul Hafiz",
+          "novel": "Novel4",
+          "true_role": "ally",
+          "predicted": "villain"
+        },
+        {
+          "character": "the Duke with more than usual tact",
+          "novel": "Novel6",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "`` Dear Signor Grandi , ''",
+          "novel": "Novel7",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "poor Hedwig , clinging closer",
+          "novel": "Novel7",
+          "true_role": "hero",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Mrs. Oswald , relenting , ` you must n't be too hard",
+          "novel": "Novel9",
+          "true_role": "ally",
+          "predicted": "adversary"
+        },
+        {
+          "character": "Miss Edith",
+          "novel": "Novel9",
+          "true_role": "ally",
+          "predicted": "adversary"
+        }
+      ]
+    },
+    {
+      "report": "              precision    recall  f1-score   support\n\n   adversary       1.00      0.25      0.40         4\n        ally       0.65      0.62      0.64        24\n        hero       0.44      0.54      0.48        13\n     neutral       0.40      0.44      0.42         9\n     villain       0.33      0.33      0.33         3\n\n    accuracy                           0.53        53\n   macro avg       0.56      0.44      0.46        53\nweighted avg       0.56      0.53      0.53        53\n",
+      "confusion_matrix": [
+        [
+          1,
+          2,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          15,
+          4,
+          3,
+          2
+        ],
+        [
+          0,
+          4,
+          7,
+          2,
+          0
+        ],
+        [
+          0,
+          2,
+          3,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          0,
+          1
+        ]
+      ],
+      "misclassified": [
+        {
+          "character": "Waymark 's",
+          "novel": "Novel11",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Maud",
+          "novel": "Novel11",
+          "true_role": "adversary",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Kate 's",
+          "novel": "Novel12",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "her guests",
+          "novel": "Novel12",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "his mamma about him",
+          "novel": "Novel14",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "the Captain 's",
+          "novel": "Novel14",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "boys at Eton",
+          "novel": "Novel14",
+          "true_role": "neutral",
+          "predicted": "hero"
+        },
+        {
+          "character": "her mother",
+          "novel": "Novel16",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "the Marchesa , interrupting him",
+          "novel": "Novel16",
+          "true_role": "neutral",
+          "predicted": "hero"
+        },
+        {
+          "character": "Zoroaster , that I would rather die with thee than live with any other",
+          "novel": "Novel18",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "The seventy priests",
+          "novel": "Novel18",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "hideous men",
+          "novel": "Novel18",
+          "true_role": "villain",
+          "predicted": "hero"
+        },
+        {
+          "character": "Alan",
+          "novel": "Novel22",
+          "true_role": "ally",
+          "predicted": "villain"
+        },
+        {
+          "character": "Alan",
+          "novel": "Novel22",
+          "true_role": "ally",
+          "predicted": "villain"
+        },
+        {
+          "character": "Alice and the doctor",
+          "novel": "Novel23",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Mr. Utterson ; for he was undemonstrative at the best",
+          "novel": "Novel25",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "the child 's",
+          "novel": "Novel25",
+          "true_role": "neutral",
+          "predicted": "ally"
+        },
+        {
+          "character": "my father , Count Filippo Romani",
+          "novel": "Novel26",
+          "true_role": "neutral",
+          "predicted": "hero"
+        },
+        {
+          "character": "Guido Ferrari , my friend",
+          "novel": "Novel26",
+          "true_role": "villain",
+          "predicted": "hero"
+        },
+        {
+          "character": "His wife",
+          "novel": "Novel27",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Ram Dass",
+          "novel": "Novel29",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "`` The Indian gentleman .",
+          "novel": "Novel29",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "Jessie",
+          "novel": "Novel29",
+          "true_role": "neutral",
+          "predicted": "ally"
+        },
+        {
+          "character": "Mr. Arrow",
+          "novel": "Novel3",
+          "true_role": "adversary",
+          "predicted": "ally"
+        },
+        {
+          "character": "Del Ferice , who , between fear and exhaustion , was by this time half idiotic",
+          "novel": "Novel30",
+          "true_role": "adversary",
+          "predicted": "ally"
+        }
+      ]
+    },
+    {
+      "report": "              precision    recall  f1-score   support\n\n   adversary       0.00      0.00      0.00         4\n        ally       0.61      0.48      0.54        23\n        hero       0.44      0.54      0.48        13\n     neutral       0.62      0.89      0.73         9\n     villain       0.00      0.00      0.00         4\n\n    accuracy                           0.49        53\n   macro avg       0.33      0.38      0.35        53\nweighted avg       0.48      0.49      0.47        53\n",
+      "confusion_matrix": [
+        [
+          0,
+          2,
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          11,
+          6,
+          2,
+          3
+        ],
+        [
+          0,
+          2,
+          7,
+          3,
+          1
+        ],
+        [
+          0,
+          1,
+          0,
+          8,
+          0
+        ],
+        [
+          0,
+          2,
+          2,
+          0,
+          0
+        ]
+      ],
+      "misclassified": [
+        {
+          "character": "Lucia , who had been looking steadily out of the carriage-window",
+          "novel": "Novel1",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "furious Lady Theobald",
+          "novel": "Novel1",
+          "true_role": "villain",
+          "predicted": "ally"
+        },
+        {
+          "character": "Richard , `` I will pray for you , indeed ; though how I may prevail I wot not",
+          "novel": "Novel10",
+          "true_role": "ally",
+          "predicted": "villain"
+        },
+        {
+          "character": "Jim , that worthy lost it",
+          "novel": "Novel13",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Seraphina 's",
+          "novel": "Novel15",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "the Baronne de Gondremark",
+          "novel": "Novel15",
+          "true_role": "adversary",
+          "predicted": "hero"
+        },
+        {
+          "character": "The miller , hearing steps",
+          "novel": "Novel15",
+          "true_role": "ally",
+          "predicted": "villain"
+        },
+        {
+          "character": "Beatrice",
+          "novel": "Novel16",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Ruggiero of the Children of the King",
+          "novel": "Novel16",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "the little Syrian maid",
+          "novel": "Novel18",
+          "true_role": "hero",
+          "predicted": "villain"
+        },
+        {
+          "character": "Doctor Longstreet , who was fifteen or twenty years older than the detective but still strong and active",
+          "novel": "Novel19",
+          "true_role": "ally",
+          "predicted": "villain"
+        },
+        {
+          "character": "the good lady",
+          "novel": "Novel19",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Mr. Mutimer 's",
+          "novel": "Novel20",
+          "true_role": "villain",
+          "predicted": "ally"
+        },
+        {
+          "character": "Alan",
+          "novel": "Novel22",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Mrs. Barton",
+          "novel": "Novel23",
+          "true_role": "villain",
+          "predicted": "hero"
+        },
+        {
+          "character": "Father Shannon",
+          "novel": "Novel23",
+          "true_role": "neutral",
+          "predicted": "ally"
+        },
+        {
+          "character": "thee , Fabio",
+          "novel": "Novel26",
+          "true_role": "hero",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Annie and Mary Austin",
+          "novel": "Novel27",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "Becky how easily he had done it before",
+          "novel": "Novel29",
+          "true_role": "ally",
+          "predicted": "adversary"
+        },
+        {
+          "character": "the little princess",
+          "novel": "Novel29",
+          "true_role": "hero",
+          "predicted": "ally"
+        },
+        {
+          "character": "no fool , is Dick",
+          "novel": "Novel3",
+          "true_role": "adversary",
+          "predicted": "villain"
+        },
+        {
+          "character": "old Saracinesca",
+          "novel": "Novel30",
+          "true_role": "ally",
+          "predicted": "neutral"
+        },
+        {
+          "character": "you , friend Griggs",
+          "novel": "Novel4",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Ram Lal",
+          "novel": "Novel4",
+          "true_role": "ally",
+          "predicted": "hero"
+        },
+        {
+          "character": "Barker",
+          "novel": "Novel6",
+          "true_role": "adversary",
+          "predicted": "ally"
+        },
+        {
+          "character": "Benoni , and Fillettino , and all her troubles",
+          "novel": "Novel7",
+          "true_role": "villain",
+          "predicted": "hero"
+        },
+        {
+          "character": "Miss Luttrell , and your memory",
+          "novel": "Novel9",
+          "true_role": "adversary",
+          "predicted": "ally"
+        }
+      ]
+    }
+  ]
+}
